@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Moe Kyaw Aung — Senior Android Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bricolage+Grotesque:opsz,wght@12..60,300;12..60,400;12..60,500;12..60,700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;overflow-x:hidden}
+:root{
+  --bg:#06050F;--glass:rgba(255,255,255,0.035);--glass-b:rgba(255,255,255,0.08);
+  --v:#8B5CF6;--c:#22D3EE;--l:#A3E635;--pk:#F472B6;
+  --text:#CBD5E1;--muted:#475569;--white:#F8FAFC;
+}
+body{background:var(--bg);color:var(--text);font-family:'Bricolage Grotesque',sans-serif;cursor:none;overflow-x:hidden}
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  background-size:180px}
+.aurora{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);animation:fblob 22s ease-in-out infinite;opacity:.3}
+.b1{width:800px;height:800px;background:radial-gradient(var(--v),transparent 70%);top:-250px;left:-180px}
+.b2{width:650px;height:650px;background:radial-gradient(var(--c),transparent 70%);top:15%;right:-200px;animation-delay:-7s;animation-duration:18s}
+.b3{width:550px;height:550px;background:radial-gradient(var(--pk),transparent 70%);bottom:-120px;left:25%;animation-delay:-13s;animation-duration:26s}
+.b4{width:450px;height:450px;background:radial-gradient(var(--l),transparent 70%);bottom:5%;right:5%;animation-delay:-9s;opacity:.18}
+@keyframes fblob{0%,100%{transform:translate(0,0) scale(1)}25%{transform:translate(50px,-40px) scale(1.07)}50%{transform:translate(-30px,60px) scale(.93)}75%{transform:translate(-60px,-25px) scale(1.04)}}
+.cur{position:fixed;width:8px;height:8px;background:#fff;border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:difference;margin:-4px -4px;transition:transform .15s}
+.cur-ring{position:fixed;width:38px;height:38px;border:1px solid rgba(255,255,255,.25);border-radius:50%;pointer-events:none;z-index:9998;margin:-19px -19px;transition:width .25s,height .25s,border-color .25s}
+body:has(a:hover) .cur{transform:scale(2.5)}
+body:has(a:hover) .cur-ring{width:58px;height:58px;border-color:rgba(139,92,246,.6)}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--v),var(--c));border-radius:2px}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;padding:24px 52px;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+nav.stuck{background:rgba(6,5,15,.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--glass-b);padding:14px 52px}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.12em;background:linear-gradient(135deg,var(--v),var(--c));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav-links{display:flex;gap:34px}
+.nav-links a{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;padding:120px 52px 80px;gap:60px;position:relative;z-index:1}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--c);border:1px solid rgba(34,211,238,.22);padding:6px 16px;border-radius:100px;background:rgba(34,211,238,.06);margin-bottom:30px}
+.eyebrow-dot{width:6px;height:6px;background:var(--c);border-radius:50%;animation:livePulse 2s ease infinite}
+@keyframes livePulse{0%,100%{box-shadow:0 0 0 0 rgba(34,211,238,.5)}70%{box-shadow:0 0 0 8px rgba(34,211,238,0)}}
+.hero-h1{font-family:'Bebas Neue',sans-serif;line-height:.9;letter-spacing:.01em;margin-bottom:22px}
+.line1{font-size:clamp(70px,8.5vw,124px);background:linear-gradient(135deg,var(--white),rgba(255,255,255,.45));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;animation:slideUp .9s ease both}
+.line2{font-size:clamp(70px,8.5vw,124px);background:linear-gradient(135deg,var(--v),var(--c) 50%,var(--l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block;animation:slideUp .9s .1s ease both}
+@keyframes slideUp{from{opacity:0;transform:translateY(44px) skewY(2deg)}to{opacity:1;transform:none}}
+.hero-role{font-family:'DM Mono',monospace;font-size:13px;color:var(--muted);margin-bottom:22px;animation:slideUp .9s .22s ease both}
+.hero-role span{color:var(--l)}
+.hero-desc{font-size:16px;line-height:1.82;color:var(--muted);max-width:490px;margin-bottom:44px;animation:slideUp .9s .34s ease both}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;animation:slideUp .9s .46s ease both}
+.btn-p{display:inline-flex;align-items:center;gap:8px;padding:13px 30px;border-radius:100px;background:linear-gradient(135deg,var(--v),var(--c));color:#fff;font-size:13px;font-weight:600;letter-spacing:.06em;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.btn-p:hover{transform:translateY(-3px) scale(1.02);box-shadow:0 16px 40px rgba(139,92,246,.4)}
+.btn-g{display:inline-flex;align-items:center;gap:8px;padding:12px 30px;border-radius:100px;background:var(--glass);border:1px solid var(--glass-b);color:var(--text);font-size:13px;font-weight:500;text-decoration:none;transition:all .2s;backdrop-filter:blur(8px)}
+.btn-g:hover{border-color:rgba(255,255,255,.2);transform:translateY(-2px);color:var(--white)}
+.phone-wrap{position:relative;width:240px;height:490px;margin:auto;animation:slideUp .9s .3s ease both}
+.phone-frame{width:240px;height:490px;background:linear-gradient(155deg,rgba(255,255,255,.09),rgba(255,255,255,.025));border:1px solid rgba(255,255,255,.13);border-radius:46px;backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 40px 80px rgba(0,0,0,.5)}
+.notch{width:80px;height:26px;background:rgba(0,0,0,.8);border-radius:0 0 16px 16px;flex-shrink:0;margin-bottom:18px}
+.pscreen{flex:1;width:100%;padding:0 14px 16px;display:flex;flex-direction:column;gap:10px}
+.pbar{height:7px;border-radius:4px;animation:barPulse 3s ease infinite}
+.pa{background:linear-gradient(90deg,var(--v),var(--c))}
+.pb{width:72%;background:linear-gradient(90deg,var(--c),var(--l));animation-delay:.25s}
+.pc2{width:88%;background:linear-gradient(90deg,var(--pk),var(--v));animation-delay:.5s}
+@keyframes barPulse{0%,100%{opacity:.45}50%{opacity:1}}
+.pcard{flex:1;border-radius:14px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:7px}
+.pcard span{font-family:'DM Mono',monospace;font-size:9px;color:var(--muted)}
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;height:78px}
+.pdots{display:flex;gap:6px;justify-content:center;padding:8px 0}
+.pdots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.12);font-style:normal}
+.pdots i.on{background:var(--white);width:20px;border-radius:3px}
+.pbadge{position:absolute;background:rgba(6,5,15,.7);border:1px solid var(--glass-b);backdrop-filter:blur(14px);border-radius:12px;padding:8px 13px;font-family:'DM Mono',monospace;font-size:10px;display:flex;align-items:center;gap:7px;white-space:nowrap}
+.pbg1{top:55px;left:-120px;color:var(--l);border-color:rgba(163,230,53,.25);animation:pbf 6s ease-in-out infinite}
+.pbg2{top:155px;right:-128px;color:var(--c);border-color:rgba(34,211,238,.25);animation:pbf 8s ease-in-out infinite reverse}
+.pbg3{bottom:75px;left:-110px;color:var(--pk);border-color:rgba(244,114,182,.25);animation:pbf 7s 1s ease-in-out infinite}
+@keyframes pbf{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.dot{width:6px;height:6px;border-radius:50%}
+section{position:relative;z-index:1}
+.sp{padding:100px 52px}
+.sec-eye{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.2em;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.sec-eye::after{content:'';width:50px;height:1px;background:var(--muted);opacity:.25}
+.sec-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,88px);line-height:.92;background:linear-gradient(135deg,var(--white),rgba(255,255,255,.4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:60px;letter-spacing:.02em}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+.bc{background:var(--glass);border:1px solid var(--glass-b);border-radius:20px;padding:26px;backdrop-filter:blur(10px);position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;transform-style:preserve-3d}
+.bc::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.045),transparent 55%);opacity:0;transition:opacity .3s;border-radius:inherit;pointer-events:none}
+.bc:hover::before{opacity:1}
+.bc:hover{border-color:rgba(255,255,255,.14);box-shadow:0 20px 55px rgba(0,0,0,.32)}
+.c4{grid-column:span 4}.c3{grid-column:span 3}.c6{grid-column:span 6}.c7{grid-column:span 7}.c5{grid-column:span 5}
+@media(max-width:1000px){.c4,.c3,.c5,.c6,.c7{grid-column:span 6}}
+@media(max-width:640px){.c4,.c3,.c5,.c6,.c7{grid-column:span 12}}
+.bi{font-size:28px;margin-bottom:14px}
+.bl{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.18em;color:var(--muted);margin-bottom:6px}
+.bt{font-size:17px;font-weight:700;color:var(--white);margin-bottom:14px}
+.pills{display:flex;flex-wrap:wrap;gap:6px}
+.pill{font-family:'DM Mono',monospace;font-size:10px;padding:3px 9px;border-radius:100px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.09);color:var(--text);letter-spacing:.04em;transition:background .2s}
+.pill:hover{background:rgba(139,92,246,.15);border-color:rgba(139,92,246,.4);color:var(--v)}
+.pv{background:rgba(139,92,246,.1);border-color:rgba(139,92,246,.28);color:var(--v)}
+.pc{background:rgba(34,211,238,.1);border-color:rgba(34,211,238,.28);color:var(--c)}
+.pl{background:rgba(163,230,53,.1);border-color:rgba(163,230,53,.28);color:var(--l)}
+.pp{background:rgba(244,114,182,.1);border-color:rgba(244,114,182,.28);color:var(--pk)}
+.big-stat{font-family:'Bebas Neue',sans-serif;font-size:80px;line-height:1;background:linear-gradient(135deg,var(--v),var(--c));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.stat-sub{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.14em;margin-top:4px}
+.mini-stats{display:flex;gap:24px;margin-top:18px}
+.ms .n{font-family:'Bebas Neue',sans-serif;font-size:40px;line-height:1;background:linear-gradient(135deg,var(--c),var(--l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ms .l{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em}
+.sb{margin-bottom:13px}
+.sb-head{display:flex;justify-content:space-between;margin-bottom:5px}
+.sb-name{font-size:12px;font-weight:500;color:var(--text)}
+.sb-pct{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
+.sb-track{height:3px;background:rgba(255,255,255,.06);border-radius:2px;overflow:hidden}
+.sb-fill{height:100%;border-radius:2px;transform:scaleX(0);transform-origin:left;transition:transform 1.3s cubic-bezier(.16,1,.3,1)}
+.sb-fill.go{transform:scaleX(1)}
+.fv{background:linear-gradient(90deg,var(--v),var(--pk))}
+.fc{background:linear-gradient(90deg,var(--c),var(--l))}
+.fl{background:linear-gradient(90deg,var(--l),var(--c))}
+.accent-bc{background:linear-gradient(135deg,rgba(139,92,246,.1),rgba(34,211,238,.05))!important;border-color:rgba(139,92,246,.2)!important}
+#experience{background:linear-gradient(180deg,var(--bg),rgba(139,92,246,.025),var(--bg))}
+.exp-row{padding:34px 0;border-bottom:1px solid var(--glass-b);display:grid;grid-template-columns:170px 1fr;gap:44px;border-radius:14px;transition:all .25s}
+.exp-row:hover{background:rgba(255,255,255,.018);padding-left:14px;padding-right:14px}
+@media(max-width:680px){.exp-row{grid-template-columns:1fr;gap:10px}}
+.exp-period{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:.1em;line-height:1.6;padding-top:3px}
+.exp-title{font-size:19px;font-weight:700;color:var(--white);margin-bottom:4px}
+.exp-co{font-family:'DM Mono',monospace;font-size:12px;color:var(--v);margin-bottom:13px;letter-spacing:.07em}
+.exp-desc{font-size:14px;line-height:1.75;color:var(--muted);max-width:600px;margin-bottom:16px}
+#projects{padding:100px 0}
+.proj-head{padding:0 52px;margin-bottom:44px}
+.proj-wrap{overflow-x:auto;padding:4px 52px 28px;scrollbar-width:thin;scroll-behavior:smooth}
+.proj-wrap::-webkit-scrollbar{height:2px}
+.proj-wrap::-webkit-scrollbar-thumb{background:linear-gradient(90deg,var(--v),var(--c));border-radius:1px}
+.proj-track{display:flex;gap:18px;width:max-content}
+.pj{width:310px;flex-shrink:0;background:var(--glass);border:1px solid var(--glass-b);border-radius:20px;padding:26px;backdrop-filter:blur(10px);position:relative;overflow:hidden;transition:transform .3s,border-color .3s,box-shadow .3s;display:flex;flex-direction:column}
+.pj::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;opacity:0;transition:opacity .3s}
+.pj:nth-child(1)::after{background:linear-gradient(90deg,var(--v),var(--c))}
+.pj:nth-child(2)::after{background:linear-gradient(90deg,var(--c),var(--l))}
+.pj:nth-child(3)::after{background:linear-gradient(90deg,var(--pk),var(--v))}
+.pj:nth-child(4)::after{background:linear-gradient(90deg,var(--l),var(--c))}
+.pj:nth-child(5)::after{background:linear-gradient(90deg,var(--v),var(--pk))}
+.pj:nth-child(6)::after{background:linear-gradient(90deg,var(--c),var(--v))}
+.pj:hover{transform:translateY(-8px);border-color:rgba(255,255,255,.17);box-shadow:0 24px 60px rgba(0,0,0,.4)}
+.pj:hover::after{opacity:1}
+.pj-num{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.2em;margin-bottom:18px}
+.pj-title{font-size:17px;font-weight:700;color:var(--white);margin-bottom:12px}
+.pj-desc{font-size:13px;line-height:1.7;color:var(--muted);margin-bottom:18px;flex:1}
+.pj-foot{display:flex;align-items:center;justify-content:flex-end}
+.pj-link{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.055);border:1px solid var(--glass-b);display:flex;align-items:center;justify-content:center;color:var(--text);text-decoration:none;font-size:13px;transition:all .2s}
+.pj-link:hover{background:rgba(139,92,246,.18);border-color:var(--v);transform:rotate(45deg)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+@media(max-width:768px){.about-grid{grid-template-columns:1fr}}
+.about-p{font-size:15px;line-height:1.88;color:var(--muted);margin-bottom:20px}
+.about-p strong{color:var(--white);font-weight:600}
+.stat-quad{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.sq{background:var(--glass);border:1px solid var(--glass-b);border-radius:16px;padding:22px;text-align:center;backdrop-filter:blur(8px)}
+.sq .n{font-family:'Bebas Neue',sans-serif;font-size:50px;line-height:1;background:linear-gradient(135deg,var(--v),var(--c));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.sq .l{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.14em;margin-top:3px}
+#contact{padding:130px 52px;text-align:center;background:linear-gradient(180deg,var(--bg),rgba(139,92,246,.05),var(--bg))}
+.contact-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(68px,11vw,148px);line-height:.88;letter-spacing:-.01em;margin-bottom:36px}
+.ch1{display:block;background:linear-gradient(135deg,var(--white),rgba(255,255,255,.38));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ch2{display:block;background:linear-gradient(135deg,var(--v),var(--c) 50%,var(--l));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.contact-sub{font-family:'DM Mono',monospace;font-size:12px;color:var(--muted);letter-spacing:.14em;margin-bottom:52px}
+.clinks{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.clink{display:flex;align-items:center;gap:10px;padding:13px 22px;background:var(--glass);border:1px solid var(--glass-b);border-radius:100px;backdrop-filter:blur(10px);text-decoration:none;color:var(--text);font-size:13px;font-weight:500;letter-spacing:.04em;transition:all .2s}
+.clink:hover{border-color:rgba(139,92,246,.5);background:rgba(139,92,246,.1);color:var(--white);transform:translateY(-3px);box-shadow:0 12px 28px rgba(139,92,246,.2)}
+.clink svg{opacity:.55;flex-shrink:0;transition:opacity .2s}
+.clink:hover svg{opacity:1}
+footer{padding:22px 52px;border-top:1px solid var(--glass-b);display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+.fc-copy{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
+.fc-status{font-family:'DM Mono',monospace;font-size:11px;color:var(--l);display:flex;align-items:center;gap:8px}
+.fc-status::before{content:'';width:6px;height:6px;background:var(--l);border-radius:50%;animation:livePulse 2s ease infinite}
+.rv{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease}
+.rv.on{opacity:1;transform:none}
+.rl{opacity:0;transform:translateX(-26px);transition:opacity .65s ease,transform .65s ease}
+.rl.on{opacity:1;transform:none}
+.rr{opacity:0;transform:translateX(26px);transition:opacity .65s ease,transform .65s ease}
+.rr.on{opacity:1;transform:none}
+@media(max-width:768px){
+  nav{padding:16px 22px}nav.stuck{padding:12px 22px}.nav-links{display:none}
+  .hero{grid-template-columns:1fr;padding:110px 22px 60px;gap:36px}
+  .phone-wrap{display:none}.sp{padding:80px 22px}
+  .proj-head{padding:0 22px}.proj-wrap{padding:4px 22px 24px}
+  #contact{padding:80px 22px}
+  footer{padding:20px 22px;flex-direction:column;gap:8px;text-align:center}
+}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+<div class="aurora">
+  <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+</div>
+<nav id="nav">
+  <div class="nav-logo">MKA</div>
+  <div class="nav-links">
+    <a href="#skills">Stack</a><a href="#experience">Work</a>
+    <a href="#projects">Projects</a><a href="#about">About</a><a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div>
+    <div class="eyebrow"><span class="eyebrow-dot"></span>Open to Senior Roles</div>
+    <h1 class="hero-h1"><span class="line1">MOE KYAW</span><span class="line2">AUNG</span></h1>
+    <p class="hero-role">Senior Android Developer &nbsp;·&nbsp; <span>Microsoft</span></p>
+    <p class="hero-desc">Building enterprise-grade Android applications with clean architecture, Jetpack Compose, and a deep obsession with performance. Based in Tachileik, Myanmar — shipping globally.</p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-p"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="5 12 19 12"/><polyline points="12 5 19 12 12 19"/></svg>View Projects</a>
+      <a href="#contact" class="btn-g">Get In Touch</a>
+    </div>
+  </div>
+  <div class="phone-wrap">
+    <div class="pbadge pbg1"><div class="dot" style="background:var(--l)"></div>Kotlin · Compose</div>
+    <div class="pbadge pbg2"><div class="dot" style="background:var(--c)"></div>Firebase · MVVM</div>
+    <div class="pbadge pbg3"><div class="dot" style="background:var(--pk)"></div>Clean Architecture</div>
+    <div class="phone-frame">
+      <div class="notch"></div>
+      <div class="pscreen">
+        <div class="pbar pa"></div><div class="pbar pb"></div><div class="pbar pc2"></div>
+        <div class="pcard" style="flex:2.2">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#8B5CF6" stroke-width="1.5"><rect x="5" y="2" width="14" height="20" rx="3"/><circle cx="12" cy="17" r="1" fill="#8B5CF6"/><line x1="9" y1="6" x2="15" y2="6"/><line x1="9" y1="9" x2="13" y2="9"/></svg>
+          <span>Android App</span>
+        </div>
+        <div class="pgrid">
+          <div class="pcard"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4"/></svg></div>
+          <div class="pcard"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#A3E635" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        </div>
+        <div class="pdots"><i class="on"></i><i></i><i></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="sp">
+  <div class="sec-eye">01 — STACK</div>
+  <h2 class="sec-h">Tech<br>Arsenal</h2>
+  <div class="bento">
+    <div class="bc c4 rv"><div class="bi">⚡</div><div class="bl">LANGUAGE</div><div class="bt">Kotlin & Java</div><div class="pills"><span class="pill pv">Coroutines</span><span class="pill pv">Flow</span><span class="pill">Extension Fns</span><span class="pill">Java Interop</span><span class="pill">Sealed Classes</span></div></div>
+    <div class="bc c4 rv" style="transition-delay:.08s"><div class="bi">🏗️</div><div class="bl">JETPACK</div><div class="bt">Modern Android</div><div class="pills"><span class="pill pc">ViewModel</span><span class="pill pc">LiveData/Flow</span><span class="pill">Navigation</span><span class="pill">Room DB</span><span class="pill">WorkManager</span><span class="pill">DataStore</span></div></div>
+    <div class="bc c4 accent-bc rv" style="transition-delay:.16s"><div class="bl">EXPERIENCE</div><div class="big-stat">2+</div><div class="stat-sub">YEARS IN ANDROID</div><div class="mini-stats"><div class="ms"><div class="n">6+</div><div class="l">PROJECTS</div></div><div class="ms"><div class="n">3</div><div class="l">DOMAINS</div></div></div></div>
+    <div class="bc c4 rv" style="transition-delay:.24s"><div class="bl">PROFICIENCY</div><div class="bt" style="margin-bottom:18px">Core Skills</div>
+      <div class="sb"><div class="sb-head"><span class="sb-name">Kotlin</span><span class="sb-pct">95%</span></div><div class="sb-track"><div class="sb-fill fv" style="width:95%"></div></div></div>
+      <div class="sb"><div class="sb-head"><span class="sb-name">Jetpack Compose</span><span class="sb-pct">80%</span></div><div class="sb-track"><div class="sb-fill fc" style="width:80%"></div></div></div>
+      <div class="sb"><div class="sb-head"><span class="sb-name">Firebase</span><span class="sb-pct">88%</span></div><div class="sb-track"><div class="sb-fill fl" style="width:88%"></div></div></div>
+      <div class="sb"><div class="sb-head"><span class="sb-name">Clean Arch/MVVM</span><span class="sb-pct">92%</span></div><div class="sb-track"><div class="sb-fill fv" style="width:92%"></div></div></div>
+    </div>
+    <div class="bc c4 rv" style="transition-delay:.32s"><div class="bi">🎨</div><div class="bl">UI / UX</div><div class="bt">Jetpack Compose</div><div class="pills"><span class="pill pp">Material 3</span><span class="pill pp">Compose UI</span><span class="pill">Animations</span><span class="pill">Custom Views</span><span class="pill">Dark Mode</span><span class="pill">A11y</span></div></div>
+    <div class="bc c4 rv" style="transition-delay:.4s;background:linear-gradient(135deg,rgba(34,211,238,.07),rgba(163,230,53,.03));border-color:rgba(34,211,238,.15)"><div class="bi">🏛️</div><div class="bl">ARCHITECTURE</div><div class="bt">Clean Architecture</div><div class="pills"><span class="pill pc">MVVM</span><span class="pill pl">Repository</span><span class="pill pc">Hilt/Dagger</span><span class="pill pl">Use Cases</span><span class="pill">Domain Layer</span></div></div>
+    <div class="bc c6 rv" style="transition-delay:.48s"><div class="bl">BACKEND & CLOUD</div><div class="bt">Firebase & REST</div><div class="pills"><span class="pill pp">Firestore</span><span class="pill pp">Auth</span><span class="pill pp">FCM</span><span class="pill pp">Realtime DB</span><span class="pill">Retrofit</span><span class="pill">OkHttp</span><span class="pill">REST</span><span class="pill">Postman</span></div></div>
+    <div class="bc c6 rv" style="transition-delay:.56s"><div class="bl">TOOLCHAIN & BEYOND</div><div class="bt">Dev Workflow + Extras</div><div class="pills"><span class="pill pl">Android Studio</span><span class="pill pl">Git/GitHub</span><span class="pill">Gradle</span><span class="pill pv">Python</span><span class="pill pv">Computer Vision</span><span class="pill">Cybersecurity</span><span class="pill">Web Tech</span></div></div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="sp">
+  <div class="sec-eye">02 — WORK</div>
+  <h2 class="sec-h">Experience</h2>
+  <div>
+    <div class="exp-row rv">
+      <div class="exp-period">2024<br>Present</div>
+      <div><div class="exp-title">Senior Android Developer</div><div class="exp-co">◆ Microsoft · Full-Time</div>
+      <div class="exp-desc">Leading Android app development at enterprise scale — owning architecture decisions, driving Jetpack Compose adoption, mentoring junior engineers, and conducting code/architecture reviews. Deep focus on performance and offline resilience.</div>
+      <div class="pills"><span class="pill pv">Kotlin</span><span class="pill pv">Jetpack Compose</span><span class="pill pc">MVVM</span><span class="pill pp">Firebase</span><span class="pill pl">REST APIs</span><span class="pill">Hilt</span></div></div>
+    </div>
+    <div class="exp-row rv" style="transition-delay:.12s">
+      <div class="exp-period">2023<br>2024</div>
+      <div><div class="exp-title">Android Developer</div><div class="exp-co">◆ Independent Projects</div>
+      <div class="exp-desc">Designed and shipped production Android apps — API-driven content apps, offline-first tools with Room & WorkManager, and real-time Firebase-powered apps with secure auth flows and push notifications.</div>
+      <div class="pills"><span class="pill pc">Room DB</span><span class="pill">Retrofit</span><span class="pill pp">Firebase</span><span class="pill pv">Navigation</span><span class="pill pl">Material 3</span></div></div>
+    </div>
+    <div class="exp-row rv" style="transition-delay:.24s">
+      <div class="exp-period">Ongoing</div>
+      <div><div class="exp-title">Self-Directed Research</div><div class="exp-co">◆ Certifications & Learning</div>
+      <div class="exp-desc">Continuous dev in computer vision with Python, cybersecurity, secure mobile coding, and digital strategy — cross-discipline thinking that strengthens every Android product I build.</div>
+      <div class="pills"><span class="pill pv">Python/CV</span><span class="pill pv">OpenCV</span><span class="pill">Cybersecurity</span><span class="pill pl">Web Tech</span><span class="pill">Digital Marketing</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="proj-head"><div class="sec-eye">03 — WORK</div><h2 class="sec-h">Projects</h2></div>
+  <div class="proj-wrap" id="projWrap">
+    <div class="proj-track">
+      <div class="pj rv"><div class="pj-num">01 — API APP</div><div class="pj-title">API-Driven Content App</div><div class="pills" style="margin-bottom:12px"><span class="pill pv">Retrofit</span><span class="pill pc">OkHttp</span><span class="pill pl">Paging 3</span></div><div class="pj-desc">Weather/news app consuming REST APIs with smart caching, error states, and pagination — optimised for low-bandwidth networks.</div><div class="pj-foot"><a href="https://github.com/Moekyawaung" target="_blank" class="pj-link">↗</a></div></div>
+      <div class="pj rv" style="transition-delay:.07s"><div class="pj-num">02 — OFFLINE</div><div class="pj-title">Offline-First Task Manager</div><div class="pills" style="margin-bottom:12px"><span class="pill pv">Room DB</span><span class="pill pc">MVVM</span><span class="pill pl">Coroutines</span></div><div class="pj-desc">Habit tracker built with Room, repository pattern, and WorkManager. Fully offline with intelligent background sync.</div><div class="pj-foot"><a href="https://github.com/Moekyawaung" target="_blank" class="pj-link">↗</a></div></div>
+      <div class="pj rv" style="transition-delay:.14s"><div class="pj-num">03 — REAL-TIME</div><div class="pj-title">Firebase Real-Time App</div><div class="pills" style="margin-bottom:12px"><span class="pill pp">Firestore</span><span class="pill pp">FCM</span><span class="pill pv">Auth</span></div><div class="pj-desc">Real-time sync, push notifications, Firebase Auth with role-based access and live Firestore data streams.</div><div class="pj-foot"><a href="https://github.com/Moekyawaung" target="_blank" class="pj-link">↗</a></div></div>
+      <div class="pj rv" style="transition-delay:.21s"><div class="pj-num">04 — DEVICE</div><div class="pj-title">Device Feature Utilities</div><div class="pills" style="margin-bottom:12px"><span class="pill pc">CameraX</span><span class="pill pl">ML Kit</span><span class="pill">Maps SDK</span></div><div class="pj-desc">CameraX + QR/barcode via ML Kit, Google Maps integration, and sensor-based motion-aware experiences.</div><div class="pj-foot"><a href="https://github.com/Moekyawaung" target="_blank" class="pj-link">↗</a></div></div>
+      <div class="pj rv" style="transition-delay:.28s"><div class="pj-num">05 — UI</div><div class="pj-title">Compose UI Showcase</div><div class="pills" style="margin-bottom:12px"><span class="pill pv">Jetpack Compose</span><span class="pill pp">Material 3</span></div><div class="pj-desc">Material Design 3 showcase with custom animations, dark mode, accessibility compliance, baseline profiles.</div><div class="pj-foot"><a href="https://github.com/Moekyawaung" target="_blank" class="pj-link">↗</a></div></div>
+      <div class="pj rv" style="transition-delay:.35s"><div class="pj-num">06 — CV/ML</div><div class="pj-title">Computer Vision Tools</div><div class="pills" style="margin-bottom:12px"><span class="pill pv">Python</span><span class="pill pl">OpenCV</span><span class="pill pc">TFLite</span></div><div class="pj-desc">Python CV pipelines integrated with Android via TFLite and ML Kit. Object detection on mobile.</div><div class="pj-foot"><a href="https://github.com/Moekyawaung" target="_blank" class="pj-link">↗</a></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="sp">
+  <div class="sec-eye">04 — ABOUT</div>
+  <h2 class="sec-h">Who I Am</h2>
+  <div class="about-grid">
+    <div class="rl">
+      <p class="about-p">I'm <strong>Moe Kyaw Aung</strong>, a Senior Android Developer at <strong>Microsoft</strong>, based in <strong>Tachileik, Myanmar</strong>. Nearly two years of hands-on Android experience shipping apps people rely on.</p>
+      <p class="about-p">My foundation is <strong>Kotlin</strong> with the full Jetpack suite — Compose, ViewModel, Room, WorkManager — architected with <strong>MVVM + Clean Architecture</strong> and Hilt DI. I care about testable, maintainable code.</p>
+      <p class="about-p">Beyond Android I study <strong>computer vision in Python</strong>, <strong>cybersecurity principles</strong>, and web technologies — cross-discipline thinking that makes me a more security-conscious, performance-aware mobile engineer.</p>
+      <p class="about-p">Currently deepening <strong>Jetpack Compose</strong>, refining test coverage, and building fully polished production apps. <strong>Always learning. Always shipping.</strong></p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:28px">
+        <a href="https://www.linkedin.com/in/moe-kyaw-aung-2653093a1" class="clink" target="_blank" style="padding:10px 18px;font-size:12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
+        <a href="https://github.com/Moekyawaung" class="clink" target="_blank" style="padding:10px 18px;font-size:12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a>
+        <a href="https://valiantblaze20aa517f1a-xvtkh.wordpress.com" class="clink" target="_blank" style="padding:10px 18px;font-size:12px"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/></svg>Blog</a>
+      </div>
+    </div>
+    <div class="rr">
+      <div class="stat-quad">
+        <div class="sq"><div class="n">2+</div><div class="l">YEARS DEV</div></div>
+        <div class="sq"><div class="n">6+</div><div class="l">PROJECTS</div></div>
+        <div class="sq"><div class="n">∞</div><div class="l">LEARNING</div></div>
+        <div class="sq"><div class="n">3</div><div class="l">DOMAINS</div></div>
+      </div>
+      <div class="bc"><div class="bl" style="margin-bottom:12px">CURRENTLY FOCUSED ON</div>
+        <div class="pills"><span class="pill pv">Jetpack Compose ↑</span><span class="pill pc">Unit Testing</span><span class="pill pl">UI Testing</span><span class="pill pp">Baseline Profiles</span><span class="pill">App Performance</span><span class="pill pv">Offline-First</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="contact-h rv"><span class="ch1">LET'S</span><span class="ch2">BUILD.</span></h2>
+  <p class="contact-sub rv">Senior Android · Freelance · Collaboration</p>
+  <div class="clinks rv">
+    <a href="https://www.linkedin.com/in/moe-kyaw-aung-2653093a1" class="clink" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn</a>
+    <a href="https://github.com/Moekyawaung" class="clink" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>GitHub</a>
+    <a href="https://valiantblaze20aa517f1a-xvtkh.wordpress.com" class="clink" target="_blank"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Blog</a>
+  </div>
+</section>
+
+<footer>
+  <div class="fc-copy">© 2025 Moe Kyaw Aung — Tachileik, Myanmar</div>
+  <div class="fc-status">Available for opportunities</div>
+</footer>
+
+<script>
+const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function t(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(t)})();
+window.addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('stuck',scrollY>50));
+const obs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)setTimeout(()=>en.target.classList.add('on'),(parseFloat(en.target.style.transitionDelay)||0)*1000)})},{threshold:.12});
+document.querySelectorAll('.rv,.rl,.rr').forEach(el=>obs.observe(el));
+const barObs=new IntersectionObserver(e=>{e.forEach(en=>{if(en.isIntersecting)en.target.querySelectorAll('.sb-fill').forEach((b,i)=>setTimeout(()=>b.classList.add('go'),i*130))})},{threshold:.3});
+document.querySelectorAll('.bc').forEach(c=>barObs.observe(c));
+document.querySelectorAll('.bc,.pj').forEach(card=>{
+  card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;card.style.transform=`perspective(600px) rotateX(${(y-.5)*9}deg) rotateY(${(x-.5)*-9}deg) translateZ(5px)`;card.style.setProperty('--mx',x*100+'%');card.style.setProperty('--my',y*100+'%')});
+  card.addEventListener('mouseleave',()=>card.style.transform='perspective(600px) rotateX(0) rotateY(0) translateZ(0)');
+});
+const pw=document.getElementById('projWrap');
+let dn=false,sx=0,sl=0;
+pw.addEventListener('mousedown',e=>{dn=true;sx=e.pageX-pw.offsetLeft;sl=pw.scrollLeft;pw.style.cursor='grabbing'});
+pw.addEventListener('mouseleave',()=>{dn=false;pw.style.cursor=''});
+pw.addEventListener('mouseup',()=>{dn=false;pw.style.cursor=''});
+pw.addEventListener('mousemove',e=>{if(!dn)return;e.preventDefault();pw.scrollLeft=sl-(e.pageX-pw.offsetLeft-sx)*1.5});
+</script>
+</body>
+</html>
