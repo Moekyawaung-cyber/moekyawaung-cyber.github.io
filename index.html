@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Moe Kyaw Aung — Senior Android Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;800&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green: #3DDC84;
+      --green-dim: #1f7a48;
+      --green-glow: rgba(61, 220, 132, 0.15);
+      --amber: #FFCA28;
+      --bg: #080C10;
+      --bg2: #0E1419;
+      --bg3: #141B23;
+      --surface: #1A222C;
+      --border: #1F2D3D;
+      --text: #C9D1D9;
+      --text-dim: #586069;
+      --white: #F0F6FC;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* CUSTOM CURSOR */
+    .cursor {
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--green);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: screen;
+      transition: transform 0.15s ease, opacity 0.15s;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(61,220,132,0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transition: transform 0.35s ease, width 0.2s, height 0.2s;
+    }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 2px; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 60px;
+      background: rgba(8,12,16,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(61,220,132,0.08);
+      transition: padding 0.3s;
+    }
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--green);
+      letter-spacing: 0.1em;
+    }
+    .nav-logo span { color: var(--text-dim); }
+    .nav-links { display: flex; gap: 36px; }
+    .nav-links a {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-dim);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--green);
+      transform: scaleX(0);
+      transition: transform 0.25s;
+    }
+    .nav-links a:hover { color: var(--green); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 60px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Animated grid background */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(61,220,132,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(61,220,132,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridPulse 8s ease-in-out infinite;
+    }
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* Glowing orb */
+    .orb {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(61,220,132,0.12) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      border-radius: 50%;
+      animation: orbFloat 10s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .orb2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(255,202,40,0.06) 0%, transparent 70%);
+      bottom: 0; left: 10%;
+      border-radius: 50%;
+      animation: orbFloat 14s ease-in-out infinite reverse;
+      pointer-events: none;
+    }
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0,0) scale(1); }
+      33% { transform: translate(30px,-20px) scale(1.05); }
+      66% { transform: translate(-20px,30px) scale(0.95); }
+    }
+
+    .hero-content { position: relative; z-index: 2; max-width: 900px; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      border: 1px solid rgba(61,220,132,0.3);
+      padding: 6px 14px;
+      border-radius: 2px;
+      margin-bottom: 32px;
+      letter-spacing: 0.15em;
+      animation: fadeSlideUp 0.6s ease both;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: blink 2s ease infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(52px, 7vw, 88px);
+      font-weight: 800;
+      line-height: 1;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      animation: fadeSlideUp 0.6s 0.15s ease both;
+    }
+    .hero-name .accent { color: var(--green); }
+
+    .hero-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(14px, 2vw, 18px);
+      color: var(--text-dim);
+      margin-bottom: 28px;
+      animation: fadeSlideUp 0.6s 0.3s ease both;
+    }
+    .hero-title .hi { color: var(--amber); }
+
+    .hero-desc {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text);
+      max-width: 560px;
+      margin-bottom: 48px;
+      animation: fadeSlideUp 0.6s 0.45s ease both;
+    }
+
+    .hero-ctas {
+      display: flex; gap: 16px; flex-wrap: wrap;
+      animation: fadeSlideUp 0.6s 0.6s ease both;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 28px;
+      background: var(--green);
+      color: var(--bg);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: transform 0.2s, box-shadow 0.2s;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(61,220,132,0.3);
+    }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      transition: border-color 0.2s, color 0.2s;
+      clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+    }
+    .btn-secondary:hover { border-color: var(--green); color: var(--green); }
+
+    /* Floating Android icon */
+    .android-float {
+      position: absolute; right: 8%; top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      animation: androidFloat 6s ease-in-out infinite;
+      opacity: 0.25;
+    }
+    @keyframes androidFloat {
+      0%,100%{transform:translateY(-50%) rotate(-3deg)}
+      50%{transform:translateY(calc(-50% - 20px)) rotate(3deg)}
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* SECTION BASE */
+    section { padding: 100px 60px; }
+    .section-header {
+      margin-bottom: 60px;
+      display: flex; align-items: baseline; gap: 20px;
+    }
+    .section-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--green);
+      letter-spacing: 0.15em;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .section-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(to right, var(--border), transparent);
+      max-width: 300px;
+    }
+
+    /* SKILLS */
+    #skills { background: var(--bg2); }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+    }
+    .skill-card {
+      background: var(--bg3);
+      padding: 32px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s;
+    }
+    .skill-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(to right, var(--green), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s;
+    }
+    .skill-card:hover { transform: translateY(-4px); border-color: rgba(61,220,132,0.3); }
+    .skill-card:hover::before { transform: scaleX(1); }
+
+    .skill-icon {
+      font-size: 28px; margin-bottom: 16px;
+    }
+    .skill-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--green);
+      letter-spacing: 0.2em;
+      margin-bottom: 8px;
+    }
+    .skill-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .skill-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 3px 8px;
+      background: rgba(61,220,132,0.08);
+      border: 1px solid rgba(61,220,132,0.2);
+      color: var(--green);
+      border-radius: 2px;
+    }
+    .tag.amber {
+      background: rgba(255,202,40,0.08);
+      border-color: rgba(255,202,40,0.2);
+      color: var(--amber);
+    }
+
+    /* EXPERIENCE TIMELINE */
+    #experience { background: var(--bg); }
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 8px; bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--green), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 56px;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+    .timeline-item.visible { opacity: 1; transform: translateX(0); }
+    .timeline-dot {
+      position: absolute; left: -36px; top: 6px;
+      width: 10px; height: 10px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--green);
+    }
+    .timeline-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .timeline-role {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .timeline-company {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--amber);
+      margin-bottom: 16px;
+    }
+    .timeline-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text);
+      max-width: 600px;
+    }
+    .timeline-tech {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 16px;
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--bg2); }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .project-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .project-card:hover {
+      border-color: rgba(61,220,132,0.35);
+      transform: translateY(-6px);
+    }
+    .project-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 80% 20%, rgba(61,220,132,0.04), transparent 60%);
+      pointer-events: none;
+    }
+    .project-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.15em;
+      margin-bottom: 20px;
+    }
+    .project-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+    .project-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--text);
+      flex: 1;
+      margin-bottom: 24px;
+    }
+    .project-link {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      display: inline-flex; align-items: center; gap: 6px;
+      transition: gap 0.2s;
+    }
+    .project-link:hover { gap: 12px; }
+
+    /* ABOUT / STATS */
+    #about { background: var(--bg); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    @media(max-width:768px){ .about-grid{grid-template-columns:1fr} }
+
+    .about-text {
+      font-size: 15px;
+      line-height: 1.85;
+      color: var(--text);
+    }
+    .about-text p { margin-bottom: 20px; }
+    .about-text strong { color: var(--white); }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+    }
+    .stat-box {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      padding: 28px 24px;
+      transition: border-color 0.3s;
+    }
+    .stat-box:hover { border-color: rgba(61,220,132,0.3); }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 40px;
+      font-weight: 800;
+      color: var(--green);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .stat-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.1em;
+    }
+
+    /* CONTACT */
+    #contact {
+      background: var(--bg2);
+      text-align: center;
+      padding: 120px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    #contact::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at center, rgba(61,220,132,0.06), transparent 70%);
+      pointer-events: none;
+    }
+    .contact-title {
+      font-size: clamp(36px, 6vw, 72px);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .contact-sub {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 48px;
+    }
+    .contact-links {
+      display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
+    }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 14px 24px;
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      transition: all 0.2s;
+    }
+    .contact-link:hover {
+      border-color: var(--green);
+      color: var(--green);
+      background: rgba(61,220,132,0.05);
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 24px 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-copy {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+    .footer-status {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--green);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .footer-status::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: blink 2s ease infinite;
+    }
+
+    /* SCROLLED NAV */
+    nav.scrolled { padding: 14px 60px; }
+
+    /* MOBILE */
+    @media(max-width:768px){
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero, section { padding: 100px 24px 60px; }
+      #contact { padding: 80px 24px; }
+      footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+      .android-float { display: none; }
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">MKA<span>.dev</span></div>
+  <div class="nav-links">
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="orb"></div>
+  <div class="orb2"></div>
+
+  <!-- Floating Android SVG -->
+  <div class="android-float">
+    <svg width="260" height="260" viewBox="0 0 260 260" fill="none">
+      <circle cx="130" cy="130" r="120" stroke="#3DDC84" stroke-width="1" stroke-dasharray="8 12"/>
+      <circle cx="130" cy="130" r="80" stroke="#3DDC84" stroke-width="0.5" opacity="0.5"/>
+      <!-- Android robot simplified -->
+      <rect x="88" y="105" width="84" height="70" rx="12" fill="#3DDC84" opacity="0.8"/>
+      <rect x="76" y="118" width="16" height="38" rx="8" fill="#3DDC84" opacity="0.7"/>
+      <rect x="168" y="118" width="16" height="38" rx="8" fill="#3DDC84" opacity="0.7"/>
+      <rect x="104" y="165" width="14" height="30" rx="7" fill="#3DDC84" opacity="0.7"/>
+      <rect x="142" y="165" width="14" height="30" rx="7" fill="#3DDC84" opacity="0.7"/>
+      <circle cx="115" cy="122" r="6" fill="#080C10"/>
+      <circle cx="145" cy="122" r="6" fill="#080C10"/>
+      <!-- antenna -->
+      <line x1="112" y1="105" x2="98" y2="85" stroke="#3DDC84" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+      <line x1="148" y1="105" x2="162" y2="85" stroke="#3DDC84" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+      <circle cx="97" cy="83" r="4" fill="#3DDC84" opacity="0.8"/>
+      <circle cx="163" cy="83" r="4" fill="#3DDC84" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-badge">AVAILABLE FOR SENIOR ROLES</div>
+    <h1 class="hero-name">Moe Kyaw<br><span class="accent">Aung</span></h1>
+    <p class="hero-title">
+      <span class="hi">Senior</span> Android Developer
+      &nbsp;·&nbsp; Kotlin · Jetpack · Firebase
+    </p>
+    <p class="hero-desc">
+      Building performant, scalable Android applications with clean architecture,
+      modern Jetpack components, and a relentless focus on user experience.
+      Based in <strong>Tachileik, Myanmar</strong> — working globally.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">▶ View Projects</a>
+      <a href="#contact" class="btn-secondary">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <span class="section-num">01 &mdash;</span>
+    <h2 class="section-title">Tech Stack</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">⚡</div>
+      <div class="skill-label">CORE LANGUAGE</div>
+      <div class="skill-name">Kotlin & Java</div>
+      <div class="skill-tags">
+        <span class="tag">Kotlin Coroutines</span>
+        <span class="tag">Flow</span>
+        <span class="tag">Extension Fns</span>
+        <span class="tag">Java Interop</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🏗️</div>
+      <div class="skill-label">ANDROID JETPACK</div>
+      <div class="skill-name">Modern Android</div>
+      <div class="skill-tags">
+        <span class="tag">ViewModel</span>
+        <span class="tag">LiveData / Flow</span>
+        <span class="tag">Navigation</span>
+        <span class="tag">Room DB</span>
+        <span class="tag">WorkManager</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🎨</div>
+      <div class="skill-label">UI / UX</div>
+      <div class="skill-name">Jetpack Compose</div>
+      <div class="skill-tags">
+        <span class="tag">Material Design 3</span>
+        <span class="tag">Compose UI</span>
+        <span class="tag">Custom Views</span>
+        <span class="tag">Animations</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">☁️</div>
+      <div class="skill-label">BACKEND & CLOUD</div>
+      <div class="skill-name">Firebase & APIs</div>
+      <div class="skill-tags">
+        <span class="tag">Firestore</span>
+        <span class="tag">Auth</span>
+        <span class="tag">FCM</span>
+        <span class="tag">Retrofit</span>
+        <span class="tag">OkHttp</span>
+        <span class="tag amber">REST</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🏛️</div>
+      <div class="skill-label">ARCHITECTURE</div>
+      <div class="skill-name">Clean Architecture</div>
+      <div class="skill-tags">
+        <span class="tag">MVVM</span>
+        <span class="tag">Repository Pattern</span>
+        <span class="tag">Dependency Injection</span>
+        <span class="tag">Hilt / Dagger</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🛠️</div>
+      <div class="skill-label">TOOLS & WORKFLOW</div>
+      <div class="skill-name">Dev Toolchain</div>
+      <div class="skill-tags">
+        <span class="tag">Android Studio</span>
+        <span class="tag">Git / GitHub</span>
+        <span class="tag">Gradle</span>
+        <span class="tag">Postman</span>
+        <span class="tag amber">Python</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-header">
+    <span class="section-num">02 &mdash;</span>
+    <h2 class="section-title">Experience</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2024 – PRESENT</div>
+      <div class="timeline-role">Senior Android Developer</div>
+      <div class="timeline-company">Microsoft · Full-time</div>
+      <div class="timeline-desc">
+        Leading development of enterprise-grade Android applications with a focus on
+        performance, scalability, and offline-first architecture. Driving adoption of
+        Jetpack Compose and modern MVVM patterns across the mobile team. Mentoring
+        junior developers and conducting architecture reviews.
+      </div>
+      <div class="timeline-tech">
+        <span class="tag">Kotlin</span>
+        <span class="tag">Jetpack Compose</span>
+        <span class="tag">MVVM</span>
+        <span class="tag">Firebase</span>
+        <span class="tag">REST APIs</span>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">2023 – 2024</div>
+      <div class="timeline-role">Android Developer</div>
+      <div class="timeline-company">Android Projects · Independent</div>
+      <div class="timeline-desc">
+        Built and shipped multiple production Android applications including API-driven
+        content apps, offline-first tools with Room &amp; Repository pattern, and
+        real-time Firebase-powered apps with push notifications and live data sync.
+      </div>
+      <div class="timeline-tech">
+        <span class="tag">Room</span>
+        <span class="tag">Retrofit</span>
+        <span class="tag">Firebase</span>
+        <span class="tag">Navigation</span>
+        <span class="tag">Material 3</span>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">CONTINUOUS</div>
+      <div class="timeline-role">Self-Directed Learning</div>
+      <div class="timeline-company">Certifications & Research</div>
+      <div class="timeline-desc">
+        Ongoing certifications in computer vision (Python), cybersecurity, secure mobile
+        coding, and digital marketing strategy — bringing cross-discipline thinking
+        to every Android product built.
+      </div>
+      <div class="timeline-tech">
+        <span class="tag amber">Python / CV</span>
+        <span class="tag amber">Cybersecurity</span>
+        <span class="tag amber">Web Technologies</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <span class="section-num">03 &mdash;</span>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_01</div>
+      <div class="project-name">API-Driven Content App</div>
+      <div class="project-tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+        <span class="tag">Retrofit</span><span class="tag">OkHttp</span><span class="tag">Paging 3</span>
+      </div>
+      <div class="project-desc">
+        Weather / news content app consuming REST APIs with Retrofit and OkHttp,
+        handling caching, error states, and efficient pagination for smooth UX
+        on low-bandwidth networks.
+      </div>
+      <a href="https://github.com/Moekyawaung" class="project-link">View on GitHub →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_02</div>
+      <div class="project-name">Offline-First Task Manager</div>
+      <div class="project-tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+        <span class="tag">Room</span><span class="tag">MVVM</span><span class="tag">Coroutines</span>
+      </div>
+      <div class="project-desc">
+        Habit tracker and to-do app built with Room database, repository pattern,
+        and MVVM. Fully functional offline with background sync and WorkManager
+        scheduled tasks.
+      </div>
+      <a href="https://github.com/Moekyawaung" class="project-link">View on GitHub →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_03</div>
+      <div class="project-name">Firebase Real-Time App</div>
+      <div class="project-tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+        <span class="tag">Firestore</span><span class="tag">FCM</span><span class="tag">Auth</span>
+      </div>
+      <div class="project-desc">
+        Cloud-connected Android app with Firebase Authentication, real-time Firestore
+        data, and FCM push notifications. Secure login flows and role-based
+        access control.
+      </div>
+      <a href="https://github.com/Moekyawaung" class="project-link">View on GitHub →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_04</div>
+      <div class="project-name">Device Feature Utilities</div>
+      <div class="project-tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+        <span class="tag">Camera X</span><span class="tag">ML Kit</span><span class="tag">Maps SDK</span>
+      </div>
+      <div class="project-desc">
+        Utility apps leveraging CameraX, QR / barcode scanning with ML Kit,
+        and Google Maps SDK for location-based features. Sensor integration
+        for motion-aware experiences.
+      </div>
+      <a href="https://github.com/Moekyawaung" class="project-link">View on GitHub →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_05</div>
+      <div class="project-name">Compose UI Showcase</div>
+      <div class="project-tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+        <span class="tag">Jetpack Compose</span><span class="tag">Material 3</span><span class="tag">Animations</span>
+      </div>
+      <div class="project-desc">
+        UI-focused demo apps built with Jetpack Compose emphasizing Material Design 3,
+        custom animations, dark mode, and full accessibility compliance.
+        Performance profiled with baseline profiles.
+      </div>
+      <a href="https://github.com/Moekyawaung" class="project-link">View on GitHub →</a>
+    </div>
+    <div class="project-card reveal">
+      <div class="project-num">PROJECT_06</div>
+      <div class="project-name">Computer Vision Tools</div>
+      <div class="project-tags" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px">
+        <span class="tag amber">Python</span><span class="tag amber">OpenCV</span><span class="tag amber">ML</span>
+      </div>
+      <div class="project-desc">
+        Python-based computer vision utilities integrated with Android via TFLite
+        and ML Kit. Object detection and image processing pipelines applied
+        to real mobile use cases.
+      </div>
+      <a href="https://github.com/Moekyawaung" class="project-link">View on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <span class="section-num">04 &mdash;</span>
+    <h2 class="section-title">About Me</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>
+        I'm <strong>Moe Kyaw Aung</strong>, a Senior Android Developer based in
+        <strong>Tachileik, Myanmar</strong>, currently at <strong>Microsoft</strong>.
+        I build Android applications that are reliable, secure, and genuinely useful — with clean architecture
+        and a UX-first mindset.
+      </p>
+      <p>
+        My core stack is <strong>Kotlin</strong> with the full Jetpack suite, but I
+        bring broader context from Python-based computer vision, cybersecurity fundamentals,
+        and web technology experience. That breadth lets me make better decisions at
+        the intersection of performance, security, and product.
+      </p>
+      <p>
+        I believe great mobile software is built on <strong>clean architecture,
+        offline resilience, and thoughtful UX</strong>. I'm deepening my Jetpack
+        Compose skills, refining testing strategies (unit + UI), and shipping
+        production-quality apps end-to-end.
+      </p>
+    </div>
+    <div class="stats-grid reveal">
+      <div class="stat-box">
+        <div class="stat-num">2+</div>
+        <div class="stat-label">YEARS ANDROID DEV</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">SHIPPED PROJECTS</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">3</div>
+        <div class="stat-label">TECH DOMAINS</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">STILL LEARNING</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <h2 class="contact-title reveal">Let's Build<br>Something.</h2>
+  <p class="contact-sub reveal">Senior Android roles · Freelance · Collaborations</p>
+  <div class="contact-links reveal">
+    <a href="https://www.linkedin.com/in/moe-kyaw-aung-2653093a1" class="contact-link" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://github.com/Moekyawaung" class="contact-link" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      GitHub
+    </a>
+    <a href="https://valiantblaze20aa517f1a-xvtkh.wordpress.com" class="contact-link" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+      Blog
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2025 Moe Kyaw Aung. Tachileik, Myanmar.</div>
+  <div class="footer-status">Open to opportunities</div>
+</footer>
+
+<script>
+  // CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx - 6 + 'px';
+    cursor.style.top = my - 6 + 'px';
+  });
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx - 18 + 'px';
+    ring.style.top = ry - 18 + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.transform = 'scale(2)'; ring.style.width = '60px'; ring.style.height = '60px'; });
+    el.addEventListener('mouseleave', () => { cursor.style.transform = 'scale(1)'; ring.style.width = '36px'; ring.style.height = '36px'; });
+  });
+
+  // SCROLL NAV
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // SCROLL REVEAL
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+
+  // TIMELINE ITEM STAGGER
+  const tlObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 150);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.timeline-item').forEach(el => tlObserver.observe(el));
+
+  // SKILL CARD STAGGER
+  const skillObserver = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.skill-card.reveal').forEach(el => skillObserver.observe(el));
+</script>
+</body>
+</html>
